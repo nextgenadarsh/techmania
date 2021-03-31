@@ -1,5 +1,7 @@
 import React from "react";
 import Markdown from "markdown-to-jsx";
+import PropTypes from "prop-types";
+import { EMPTY_FUN } from "../../../../shared/utils/constant"
 
 import "./index.css";
 
@@ -14,9 +16,9 @@ const QnA = ({ question, onQuestionSelect }) => {
         className="question-tags"
         onClick={() => handleOnQuestionSelect(question.id)}
       >
-        <h6>
-          {question.id}. {question.q}
-        </h6>
+        <h3>
+          {question.q}
+        </h3>
         <div className="tags">
           {question.tags.map((tag, tagIndex) => (
             <sup className="tag" key={tagIndex}>
@@ -26,10 +28,19 @@ const QnA = ({ question, onQuestionSelect }) => {
         </div>
       </div>
       <div className="answer">
-        {question.answer && <Markdown>{question.answer}</Markdown>}
+        {question.a && <Markdown>{question.a}</Markdown>}
       </div>
     </div>
   );
 };
+
+QnA.propTypes = {
+  question: PropTypes.object.isRequired,
+  onQuestionSelect: PropTypes.func
+};
+
+QnA.defaultProps = {
+  onQuestionSelect: EMPTY_FUN
+}
 
 export default QnA;
